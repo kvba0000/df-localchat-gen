@@ -1,0 +1,166 @@
+div.content {
+    width: 100%;
+    min-height: 60%;
+
+    user-select: none;
+    box-sizing: border-box;
+}
+
+/* Text Selector */
+div.textselector {
+    display: block;
+    position: relative;
+
+    margin-top: var(--selector-gap);
+    margin-bottom: var(--selector-gap);
+
+    width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 1.5em;
+}
+
+div.textselector > div.textselector-prompt,
+div.textselector > div.textselector-options {
+    text-align: center;
+}
+
+div.textselector-prompt > span.textselector-val {
+    white-space: pre;
+}
+
+div.textselector-prompt > span.textselector-val::after {
+    content: " ";
+}
+
+div.text-keys > span.text-key {
+    position: relative;
+    margin-left: 30px;
+    padding: 10px;
+
+    user-select: none;
+}
+
+div.textselector > div.textselector-options {
+    user-select: none;
+    margin-top: 20px;
+}
+
+div.textselector > div.textselector-options > span:not(:last-of-type) {
+    margin-right: 50px;
+}
+
+
+
+/* Icon selector */
+div.iconselector {
+    display: block;
+    position: relative;
+
+    margin-top: var(--selector-gap);
+    margin-bottom: var(--selector-gap);
+
+    width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+div.iconselector-face {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    background-image: url("../sprites/spr_rp_localmsg_icon_0.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    border: 3px white solid;
+}
+
+div.iconselector-face > img {
+    position: relative;
+
+    height: 100%;
+    width: 100%;
+
+    object-fit: contain;
+}
+
+div.iconselector-curricon > div.iconselector-face {
+    height: 100px;
+    width: 100px;
+}
+
+div.iconselector > div.iconselector-icons {
+    position: relative;
+
+    margin-top: 50px;
+
+    left: 50%;
+    transform: translateX(-50%);
+    
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+}
+
+div.iconselector-icons > div.iconselector-face {
+    height: 50px;
+    width: 50px;
+
+    margin: 5px;
+}
+
+div.iconselector-curricon > img.iconselector-face-arrow {
+    position: relative;
+    width: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+div.iconselector-curricon > img.iconselector-face-next {
+    bottom: -5px;
+}
+
+div.iconselector-curricon > img.iconselector-face-prev {
+    top: -5px;
+}
+
+
+
+/* Image generator result */
+div.imagegen {
+    text-align: center;
+}
+
+div.imagegen > img.imagegen-result {
+    width: 70%;
+}
+
+div.imagegen > div.imagegen-options {
+    user-select: none;
+
+    margin-top: 20px;
+    font-size: 1.8em;
+}
+
+div.imagegen-options > span:not(:last-of-type) {
+    margin-right: 30px;
+}
+
+
+/* Music player */
+.musplayer {
+    background-color: black;
+    border: 3px white solid;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    padding: 20px;
+    margin: 20px;
+
+    z-index: 10;
+}

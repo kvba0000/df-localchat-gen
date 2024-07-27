@@ -1,0 +1,46 @@
+/* Imports */
+@import url("defaults.css");
+@import url("./notice.css");
+@import url("./header.css");
+@import url("./content.css");
+@import url("./footer.css");
+
+/* Fonts */
+@font-face {
+    font-family: "Determination Mono";
+    src: url("fonts/DeterminationSansWebRegular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Monster Friend Fore";
+    src: url("fonts/MonsterFriendFore.ttf") format("truetype");
+}
+
+/* Vars */
+:root {
+    /* Notice */
+    --notice-img-padding: 40px;
+    --notice-text-padding: 10px;
+
+    /* Header */
+    --header-padding-horiz: 20px;
+    --header-padding-vert: 20px;
+    --header-gap: 50px;
+
+    /* Content */
+    /* selectors */
+    --selector-gap: 50px;
+
+    /* Footer */
+    --footer-padding-vert: 40px;
+    --footer-padding-horiz: 60px;
+
+    --footer-text-padding-horiz: 20px;
+
+    /* Mutual */
+    --color-bg: #000000;
+    --color-normal: #ffffff;
+    --color-second: #808080;
+    --color-error: #ff0000;
+    --color-link: #ffff00;
+}

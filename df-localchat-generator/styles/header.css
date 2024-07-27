@@ -1,0 +1,31 @@
+div.header {
+    width: 100%;
+    min-height: 100px;
+
+    padding-left: var(--header-padding-horiz);
+    padding-right: var(--header-padding-horiz);
+    padding-top: var(--header-padding-vert);
+    padding-bottom: var(--header-padding-vert);
+
+    margin-bottom: var(--header-gap);
+    
+    font-size: 1.8em;
+    text-align: center;
+
+    user-select: none;
+    box-sizing: border-box;
+}
+
+div.header > * {
+    display: block;
+}
+
+div.header > img.someone {
+    position: relative;
+    left: 30%;
+    transform: translateX(-50%);
+}
+
+div.header span.htext {
+    font-family: "Monster Friend Fore";
+}

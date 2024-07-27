@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles/style.css" />
+        
+        <link rel="preload" as="image" href="sprites/spr_harlownotice_0.png" />
+        <link rel="prefetch" as="image" href="sprites/spr_rp_localmsg_icon_0.png" />
+        <link rel="prefetch" as="image" href="sprites/spr_rurq.png" />
+        
+        <link rel="preload" as="style" href="styles/defaults.css" />
+        <link rel="preload" as="style" href="styles/notice.css" />
+        
+        <link rel="preload" as="script" href="scripts/notice-handler.js" crossorigin="anonymous" />
+        
+        <title>DF Local Chat Generator</title>
+        <link rel="icon" type="image/x-icon" href=" favicon.ico">
+        <meta property="og:title" content="DF Local Chat Generator" />
+        <meta property="og:image" content="img/preview.png" />
+        <meta name="description" content="Generate any message that will look like it was from DF!" />
+        <meta property="og:description" content="Generate any message that will look like it was from DF!" />
+        <meta name="author" content="kvba0000" />
+        <meta name="keywords" content="kvba, kvba0000, undertale, dontforget, deltarune" />
+        <meta name="theme-color" content="#e603ff" />
+    </head>
+    <body>
+        <div class="notice">
+            <noscript>
+                <span class="color-error">You must have JavaScript enabled to use this site!</span>
+            </noscript>
+            <div class="notice-content">
+                <img alt="Harlow - Notice" src="sprites/spr_harlownotice_0.png" height="200" />
+                <span id="noticetext"></span>
+                <span id="noticecontinue" class="color-second">[Click to Enter]</span>
+                <script type="module" src="scripts/notice-handler.js"></script>
+            </div>
+        </div>
+        <div class="header">
+            <img class="someone" alt="..." height="70" />
+            <span class="htext">DF Local Chat Generator</span>
+            <span>Generate any message that will look like it was from DF!</span>
+        </div>
+
+        <div class="content">
+            <div style="display: none;" id="textselector-template">
+                <div class="textselector">
+                    <div class="textselector-prompt">
+                        <span class="display-block color-second fsize-medium">(You can use keyboard)</span>
+                        <span class="textselprompt display-block"></span>
+                        <span class="textselector-val"></span>
+                    </div>
+                    <div class="textselector-options">
+                        <span class="selectable textselector-back">Backspace</span>
+                        <span class="selectable textselector-done">Done</span>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;" id="iconselector-template">
+                <div class="iconselector">
+                    <div class="iconselector-curricon">
+                        <img class="selectable-full iconselector-face-arrow iconselector-face-next" src="sprites/spr_rp_localmsg_arrow_0.png" />
+                        <div class="selectable-border iconselector-face">
+                            <img src="" />
+                        </div>
+                        <img class="selectable-full iconselector-face-arrow iconselector-face-prev" src="sprites/spr_rp_localmsg_arrow_1.png" />
+                    </div>
+                    <div class="iconselector-icons"></div>
+                </div>
+            </div>
+            <div style="display: none;" id="imagegen-template">
+                <div class="imagegen">
+                    <img class="imagegen-result" title="Generated Image" src="" />
+                    <div class="imagegen-options">
+                        <span class="selectable imagegen-download">Download</span>
+                        <span class="selectable imagegen-new">Generate new...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span><a title="Donload the game here!" href="https://gamejolt.com/games/dontforget/150752">DONTFORGET by RickyG</a></span>
+            <span><a title="Visit Undertale page!" href="https://undertale.com/">Undertale by Toby Fox</a></span>
+            <span><a title="Visit kvba's GitHub!" href="https://github.com/kvba0000">DLCG by kvba</a></span>
+            <span>Game is not affiliated with or <span>connected</span> to RickyG, Toby Fox or other third parties.</span>
+        </div>
+        <div class="musplayer">
+            <span id="mus-start" class="selectable">Play</span>
+            <script type="module" src="scripts/musplayer.js"></script>
+        </div>
+        <script type="module" src="scripts/index.js"></script>
+    </body>
+</html>

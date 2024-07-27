@@ -1,0 +1,69 @@
+html, body {
+    margin: 0;
+    padding: 0;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-normal);
+
+    font-family: "Determination Mono", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-link);
+}
+
+img {
+    image-rendering: pixelated;
+}
+
+canvas {
+    font-smooth: never;
+    -webkit-font-smoothing : none;
+}
+
+.opacity-100 {
+    opacity: 100% !important;
+}
+
+.color-second {
+    color: var(--color-second);
+}
+
+.color-error {
+    color: var(--color-error);
+}
+
+.display-block {
+    display: block;
+}
+
+.fsize-medium {
+    font-size: medium;
+}
+
+.selectable:hover {
+    color: var(--color-link);
+}
+
+.selectable-border:hover {
+    border-color: var(--color-link);
+}
+
+.selectable-full:hover {
+    filter: invert(97%) sepia(62%) saturate(5704%) hue-rotate(358deg) brightness(106%) contrast(101%);
+}
+
+/* Disables overflow */
+body.no-overflow {
+    overflow: hidden !important;
+}
