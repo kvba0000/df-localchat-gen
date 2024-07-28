@@ -29,12 +29,16 @@ export default class ImageGenerator {
     message = "";
     /** @private @type {string} */
     icon = "";
-    /** @private @type {ImageData} */
+    /** @type {string} */
     dataURL = null;
     /** @type {HTMLDivElement} */
     element;
     /** @private @type {null | (this: ImageGenerator) => void} */
     onNew = null;
+    /** @type {number} */
+    imageRatio = 4
+    /** @type {boolean} */
+    messageCalculated = false
 
     /**
      * 
@@ -54,12 +58,20 @@ export default class ImageGenerator {
     }
 
     /**
+     * Calculates text width and fits it to the content
+     * @param {CanvasRenderingContext2D} ctx Canvas Context in which text should be calculated
+     */
+    fitMessage = (ctx)=> {
+        if(this.messageCalculated) return;
+        while (ctx.measureText(this.message).width > 275 * this.imageRatio) this.message = this.message.slice(0, -1)
+        this.messageCalculated = true;
+    }
+
+    /**
      * Generate image
      * @returns {Promise<ImageData>}
      */
     generate = async () => {
-        const ratio = 5
-
         // Loading images
         const bg = new Image()
         bg.src = "sprites/spr_rp_localmsg_0.png"
@@ -69,8 +81,8 @@ export default class ImageGenerator {
         await imageWaitToLoad(bg, icon)
 
         const canvas = document.createElement("canvas")
-        canvas.height = bg.naturalHeight * ratio
-        canvas.width = bg.naturalWidth * ratio
+        canvas.height = bg.naturalHeight * this.imageRatio
+        canvas.width = bg.naturalWidth * this.imageRatio
 
         const ctx = canvas.getContext("2d")
         ctx.imageSmoothingEnabled = false
@@ -93,32 +105,31 @@ export default class ImageGenerator {
             y = 5 + (iconHeight / 2) - (icon.height / 2)
         ctx.drawImage(
             icon,
-            x * ratio,
-            y * ratio,
-            width * ratio,
-            height * ratio
+            x * this.imageRatio,
+            y * this.imageRatio,
+            width * this.imageRatio,
+            height * this.imageRatio
         )
 
         // name
         ctx.fillStyle = "white"
         ctx.textBaseline = "top"
-        let fontSize = 7 * ratio
+        let fontSize = 7 * this.imageRatio
         ctx.font = `${fontSize}px "Trouble Benath The Dome"`
         ctx.fillText(
             `[${this.name}]:`,
-            38 * ratio,
-            7 * ratio
+            38 * this.imageRatio,
+            7 * this.imageRatio
         )
 
         // msg
-        let msg = this.message
-        while (ctx.measureText(msg).width > 200 * ratio) msg = msg.slice(0, -1)
-        fontSize = 70
+        fontSize = 60
         ctx.font = `${fontSize}px "Determination Mono"`
+        this.fitMessage(ctx)
         ctx.fillText(
-            msg,
-            38 * ratio,
-            13 * ratio
+            this.message,
+            38 * this.imageRatio,
+            13 * this.imageRatio
         )
 
         
