@@ -1,0 +1,13 @@
+{
+	"private": true,
+	"scripts": {
+		"serve": "http-server src",
+		"dev": "http-server src -c-1"
+	},
+	"devDependencies": {
+		"@types/gif.js": "0.2.5"
+	},
+	"dependencies": {
+		"http-server": "14.1.1"
+	}
+}

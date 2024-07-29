@@ -29,8 +29,6 @@ export default class ImageGenerator {
     message = "";
     /** @private @type {string} */
     icon = "";
-    /** @type {string} */
-    dataURL = null;
     /** @type {HTMLDivElement} */
     element;
     /** @private @type {null | (this: ImageGenerator) => void} */
@@ -39,6 +37,10 @@ export default class ImageGenerator {
     imageRatio = 4
     /** @type {boolean} */
     messageCalculated = false
+    /** @type {string | null} */
+    dataURL = null
+    /** @type {string | null} */
+    dataGifURL = null
 
     /**
      * 
@@ -55,6 +57,43 @@ export default class ImageGenerator {
         this.onNew = onNew
 
         this.element = IMAGEGEN_TEMPLATE.cloneNode(true)
+        this.prepareElements()
+    }
+
+    /**
+     * Prepares element to work
+     * @private
+     */
+    prepareElements() {
+        const options = this.element.querySelector("div.imagegen-options")
+
+        const downloadEl = options.querySelector("span.imagegen-download")
+        const newEl = options.querySelector("span.imagegen-new")
+
+        const imgOptions = options.querySelector("div.imagegen-imgoptions")
+        /** @type {HTMLInputElement} */
+        const animatedEl = imgOptions.querySelector("input.imagegen-animated")
+
+        newEl.addEventListener("mouseover", () => playAudioNoDelay(BLIP_AUDIO))
+
+        downloadEl.addEventListener("click", () => {
+            playAudioNoDelay(SELECT_AUDIO)
+            
+            const a = document.createElement("a")
+            a.href = this.dataURL
+            a.download = "not a real chat message.png"
+            a.click()
+        })
+
+        downloadEl.addEventListener("mouseover", () => playAudioNoDelay(BLIP_AUDIO))
+
+        newEl.addEventListener("click", () => {
+            playAudioNoDelay(SELECT_AUDIO)
+            this.element.remove()
+            if (this.onNew) this.onNew.bind(this)()
+        })
+
+        animatedEl.addEventListener("click", () => this.show(null, animatedEl.checked))
     }
 
     /**
@@ -69,9 +108,12 @@ export default class ImageGenerator {
 
     /**
      * Generate image
-     * @returns {Promise<ImageData>}
+     * @private
+     * @param {boolean} returnImageData Should return image data instead of image url
+     * @param {string | undefined} text Custom text for message, MESSAGE FITTING DOES NOT APPLY
+     * @returns {Promise<string | ImageData>}
      */
-    generate = async () => {
+    generate = async (returnImageData = false, text) => {
         // Loading images
         const bg = new Image()
         bg.src = "sprites/spr_rp_localmsg_0.png"
@@ -127,51 +169,82 @@ export default class ImageGenerator {
         ctx.font = `${fontSize}px "Determination Mono"`
         this.fitMessage(ctx)
         ctx.fillText(
-            this.message,
+            text || this.message,
             38 * this.imageRatio,
             13 * this.imageRatio
         )
 
-        
-        this.dataURL = canvas.toDataURL("image/png")
-        return this.dataURL;
+        return returnImageData ? ctx.getImageData(0, 0, canvas.width, canvas.height) : canvas.toDataURL("image/png")
+    }
+
+    /**
+     * Generate GIF
+     * @private
+     * @returns {Promise<string>}
+     */
+    async generateGIF() {
+        // Calculating message
+        const bg = new Image()
+        bg.src = "sprites/spr_rp_localmsg_0.png"
+        await imageWaitToLoad(bg)
+
+        const canvas = document.createElement("canvas")
+        canvas.height = bg.naturalHeight * this.imageRatio
+        canvas.width = bg.naturalWidth * this.imageRatio
+
+        const ctx = canvas.getContext("2d")
+        const fontSize = 60
+        ctx.font = `${fontSize}px "Determination Mono"`
+        this.fitMessage(ctx)
+
+        return new Promise(async r => {
+            const gif = new GIF({
+                workerScript: "scripts/gif.js/gif.worker.js"
+            })
+            gif.once("finished", (blob) => {
+                console.log(URL.createObjectURL(blob))
+                r(URL.createObjectURL(blob))
+            })
+
+            let text = ""
+            for(let i = 0; i < this.message.length; i++) {
+                text += this.message[i]
+                console.log(text)
+                gif.addFrame(
+                    await this.generate(true, text),
+                    {
+                        delay: i === this.message.length - 1 ? 10_000 : 33
+                    }
+                )
+            }
+
+            gif.render()
+        })
     }
 
     /**
      * Shows image in DOM
-     * @param {Node} putBefore Before which element will this be shown? 
+     * @param {Node | null} putBefore Before which element will this be shown? 
+     * @param {boolean} gif Should show GIF?
      */
-    async show(putBefore) {
-        if(!this.dataURL) throw new Error("Image has not been generated yet!")
-
-        const imgOptions = this.element.querySelector("div.imagegen-options")
-        const downloadEl = imgOptions.querySelector("span.imagegen-download")
-        const newEl = imgOptions.querySelector("span.imagegen-new")
-
-        downloadEl.addEventListener("click", () => {
-            playAudioNoDelay(SELECT_AUDIO)
-            
-            const a = document.createElement("a")
-            a.href = this.dataURL
-            a.download = "not a real chat message.png"
-            a.click()
-        })
-
-        downloadEl.addEventListener("mouseover", () => playAudioNoDelay(BLIP_AUDIO))
-
-        newEl.addEventListener("click", () => {
-            playAudioNoDelay(SELECT_AUDIO)
-            this.element.remove()
-            if (this.onNew) this.onNew.bind(this)()
-        })
-
-        newEl.addEventListener("mouseover", () => playAudioNoDelay(BLIP_AUDIO))
+    async show(putBefore, gif) {
+        if(this.element.isConnected) this.element.style.display = "none"
 
         const imgEl = this.element.querySelector("img.imagegen-result")
-        imgEl.src = this.dataURL
+
+        const src = !gif ? 
+            (this.dataURL ? this.dataURL : await this.generate()) : 
+            (this.dataGifURL ? this.dataGifURL : await this.generateGIF())
+
+        if(gif && !this.dataGifURL) this.dataGifURL = src
+        if(!gif && !this.dataURL) this.dataURL = src
+
+        imgEl.src = src
         await imageWaitToLoad(imgEl)
 
         playAudioNoDelay(SOUND_EQUIP)
-        CONTENT_ELEMENT.insertBefore(this.element, putBefore || null)
+
+        if(this.element.isConnected) this.element.style.display = ""
+        else CONTENT_ELEMENT.insertBefore(this.element, putBefore || null)
     }
 }

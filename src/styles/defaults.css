@@ -31,6 +31,27 @@ canvas {
     -webkit-font-smoothing : none;
 }
 
+input[type="checkbox"] {
+    appearance: none;
+    border:black 3px solid;
+    outline: white 3px solid;
+    background-color: transparent;
+    
+    margin: 0 6px 0 0;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+input[type="checkbox"]:hover {
+    outline-color: var(--color-link);
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--color-link);
+}
+
+
+/* Classes */
 .opacity-100 {
     opacity: 100% !important;
 }

@@ -149,6 +149,9 @@ div.imagegen-options > span:not(:last-of-type) {
     margin-right: 30px;
 }
 
+div.imagegen-options > div.imagegen-imgoptions {
+    margin-bottom: 10px;
+}
 
 /* Music player */
 .musplayer {

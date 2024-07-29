@@ -122,8 +122,7 @@ const startGenerator = async () => {
         icon,
         () => start(true)
     )
-    await imageGen.generate()
-    imageGen.show()
+    imageGen.show(null, false)
 }
 
 const start = (restart = false) => {
