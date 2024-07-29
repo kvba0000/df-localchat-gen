@@ -176,13 +176,17 @@ export default class TextSelector {
         this.keysShakeInteral = setInterval(() => {
             if(!(this.exists && this.element.isConnected)) return; // Update only if appended to DOM
 
-            for(let keyEl of keyElementsArr) {
-                let keyPos = new Array(2)
-                    .fill(null)
-                    .map(() => Math.random() * (SHAKE_POWER - -SHAKE_POWER) + -SHAKE_POWER)
-                
-                keyEl.style.left = `${keyPos[0]}px`;
-                keyEl.style.top = `${keyPos[1]}px`
+            const keyPos = new Float32Array(keyElementsArr.length * 2);
+            for (let i = 0; i < keyElementsArr.length; i++) {
+                const offset = i * 2;
+                keyPos[offset] = Math.random() * (SHAKE_POWER * 2) - SHAKE_POWER;
+                keyPos[offset + 1] = Math.random() * (SHAKE_POWER * 2) - SHAKE_POWER;
+            }
+            for (let i = 0; i < keyElementsArr.length; i++) {
+                const keyEl = keyElementsArr[i];
+                const offset = i * 2;
+                keyEl.style.left = `${keyPos[offset]}px`;
+                keyEl.style.top = `${keyPos[offset + 1]}px`;
             }
         }, 50);
     }

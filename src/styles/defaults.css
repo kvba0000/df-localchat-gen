@@ -51,6 +51,7 @@ input[type="checkbox"]:checked {
 }
 
 
+/* Animations */
 @keyframes rainbow-col {
     0% {
         color: red;
