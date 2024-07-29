@@ -137,7 +137,9 @@ export default class IconSelector {
                 currIcon.scrollIntoView({behavior: "smooth"})
                 this.setChar(id)
             })
-            div.addEventListener("mouseover", () => playAudioNoDelay(BLIP_AUDIO))
+            div.addEventListener("mouseover", (ev) => {
+                if (ev.relatedTarget === div) playAudioNoDelay(BLIP_AUDIO)
+            })
 
             const img = document.createElement("img")
             img.src = this.getIconURL(id, 0)

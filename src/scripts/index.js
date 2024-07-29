@@ -1,5 +1,5 @@
 import IconSelector from "./class/icon-selector.js";
-import TextSelector, {KEYS_UP, KEYS_DOWN, KEYS_SPECIAL, KEYS_NUMBERS} from "./class/text-selector.js"
+import TextSelector, {KEYS_UP, KEYS_DOWN, KEYS_SPECIAL_EXT, KEYS_NUMBERS} from "./class/text-selector.js"
 import { animateAsync, audioWaitToLoad } from "./helper.js";
 import { calculateNono } from "./please-stop.js";
 import ImageGenerator from "./class/image-gen.js"
@@ -79,7 +79,7 @@ const QUESTIONS = [
             if(this.value.length > 100) this.value = this.value.slice(0, -1)
             calculateNono(v)
         },
-        allowedKeys: [KEYS_UP, KEYS_DOWN, KEYS_NUMBERS, "!@$%^&*():\"'{}[]|<>/+= " + KEYS_SPECIAL]
+        allowedKeys: [KEYS_UP, KEYS_DOWN, KEYS_NUMBERS, KEYS_SPECIAL_EXT]
     }
 ]
 

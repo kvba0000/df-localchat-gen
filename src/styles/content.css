@@ -27,7 +27,8 @@ div.textselector > div.textselector-options {
 }
 
 div.textselector-prompt > span.textselector-val {
-    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 div.textselector-prompt > span.textselector-val::after {

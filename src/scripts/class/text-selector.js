@@ -9,7 +9,7 @@ export const KEYS_UP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 export const KEYS_DOWN = "abcdefghijklmnopqrstuvwxyz"
 export const KEYS_NUMBERS = "0123456789"
 export const KEYS_SPECIAL = "_-"
-
+export const KEYS_SPECIAL_EXT = "?!@$%^&*():\"'{}[]|<>/+= _-"
 
 /**
  * Undertale-like text selector
