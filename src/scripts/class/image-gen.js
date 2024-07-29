@@ -82,8 +82,8 @@ export default class ImageGenerator {
             playAudioNoDelay(SELECT_AUDIO)
             
             const a = document.createElement("a")
-            a.href = this.dataURL
-            a.download = `not a real chat message.${isAnimated ? "gif" : "png"}`
+            a.href = this.isAnimated ? this.dataGifURL : this.dataURL
+            a.download = `not a real chat message.${this.isAnimated ? "gif" : "png"}`
             a.click()
         })
 
@@ -96,7 +96,7 @@ export default class ImageGenerator {
         })
 
         animatedEl.addEventListener("click", () => {
-            isAnimated = animatedEl.checked
+            this.isAnimated = animatedEl.checked
             this.show(null, animatedEl.checked)
         })
     }
