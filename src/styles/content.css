@@ -161,9 +161,40 @@ div.imagegen-options > div.imagegen-imgoptions {
     position: fixed;
     top: 0;
     right: 0;
+    transform: translateX(100%);
 
     padding: 20px;
     margin: 20px;
 
     z-index: 10;
+
+    transition: transform 0.5s;
+}
+
+.musplayer:hover {
+    transform: translateX(0);
+}
+
+.musplayer::before {
+    content: "Music";
+    
+    position: absolute;
+
+    top: 50%;
+    left: -10px;
+    transform: translate(-50%, -50%) rotate(-90deg);
+
+    transition: opacity 0.5s;
+}
+
+.musplayer:hover::before {
+    opacity: 0;
+}
+
+.musplayer > span:not(:last-of-type) {
+    margin-right: 10px;
+}
+
+.musplayer > span#mus-title::before {
+    content: "♪ ";
 }

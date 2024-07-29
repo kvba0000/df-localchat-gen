@@ -51,6 +51,31 @@ input[type="checkbox"]:checked {
 }
 
 
+@keyframes rainbow-col {
+    0% {
+        color: red;
+    }
+    16% {
+        color: orange;
+    }
+    33% {
+        color: yellow;
+    }
+    50% {
+        color: green;
+    }
+    66% {
+        color: blue;
+    }
+    83% {
+        color: indigo;
+    }
+    100% {
+        color: red;
+    }
+}
+
+
 /* Classes */
 .opacity-100 {
     opacity: 100% !important;
@@ -88,3 +113,10 @@ input[type="checkbox"]:checked {
 body.no-overflow {
     overflow: hidden !important;
 }
+
+.rainbow-col {
+    animation: rainbow-col 10s linear infinite;
+}
+
+.robot-btn::before { content: "["; }
+.robot-btn::after { content: "]"; }
