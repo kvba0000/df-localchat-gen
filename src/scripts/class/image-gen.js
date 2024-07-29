@@ -41,6 +41,8 @@ export default class ImageGenerator {
     dataURL = null
     /** @type {string | null} */
     dataGifURL = null
+    /** @private @type {boolean} */
+    isAnimated = false;
 
     /**
      * 
@@ -81,7 +83,7 @@ export default class ImageGenerator {
             
             const a = document.createElement("a")
             a.href = this.dataURL
-            a.download = "not a real chat message.png"
+            a.download = `not a real chat message.${isAnimated ? "gif" : "png"}`
             a.click()
         })
 
@@ -93,7 +95,10 @@ export default class ImageGenerator {
             if (this.onNew) this.onNew.bind(this)()
         })
 
-        animatedEl.addEventListener("click", () => this.show(null, animatedEl.checked))
+        animatedEl.addEventListener("click", () => {
+            isAnimated = animatedEl.checked
+            this.show(null, animatedEl.checked)
+        })
     }
 
     /**
