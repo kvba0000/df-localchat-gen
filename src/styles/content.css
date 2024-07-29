@@ -76,15 +76,22 @@ div.iconselector-face {
     background-size: 100% 100%;
 
     border: 3px white solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 div.iconselector-face > img {
     position: relative;
 
-    height: 100%;
-    width: 100%;
+    height: 100px;
+    width: 100px;
+    max-height: 100%;
+    max-width: 100%;
 
     object-fit: contain;
+    object-position: bottom;
 }
 
 div.iconselector-curricon > div.iconselector-face {

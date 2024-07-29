@@ -148,8 +148,9 @@ export default class ImageGenerator {
           width = iconHeight * imgRatio;
           height = iconHeight;
         }
-        let x = 5 + (iconWidth / 2)- (icon.width / 2),
-            y = 5 + (iconHeight / 2) - (icon.height / 2)
+        
+        let x = 5 + (iconWidth - width) / 2;
+        let y = 5 + iconHeight - height;
         ctx.drawImage(
             icon,
             x * this.imageRatio,

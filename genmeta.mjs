@@ -9,13 +9,15 @@ import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const dirs = readdirSync(__dirname)
-    .filter(f => statSync(join(__dirname, f)).isDirectory())
+const path = join(__dirname, "src", "sprites", "faces")
+
+const dirs = readdirSync(path)
+    .filter(f => statSync(join(path, f)).isDirectory())
 
 const data = dirs.reduce((prev, curr) => {
-    const size = readdirSync(join(__dirname, curr)).length
+    const size = readdirSync(join(path, curr)).length
     if(size <= 0) return prev
     return ({...prev, [curr]: size})
 }, {})
 
-writeFileSync("metadata.json", JSON.stringify(data))
+writeFileSync(join(path, "metadata.json"), JSON.stringify(data))
