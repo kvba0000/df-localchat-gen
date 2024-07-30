@@ -21,6 +21,13 @@ div.textselector {
     font-size: 1.5em;
 }
 
+div.textselector > div.text-keys {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 div.textselector > div.textselector-prompt,
 div.textselector > div.textselector-options {
     text-align: center;
@@ -56,6 +63,7 @@ div.textselector > div.textselector-options > span:not(:last-of-type) {
 
 /* Icon selector */
 div.iconselector {
+    text-align: center;
     display: block;
     position: relative;
 
@@ -65,6 +73,16 @@ div.iconselector {
     width: 600px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+div.iconselector::before {
+    display: block;
+    content: "Pick an icon";
+
+    margin-bottom: 10px;
+
+    color: var(--color-normal);
+    font-size: 1.8em;
 }
 
 div.iconselector-face {
@@ -104,13 +122,11 @@ div.iconselector > div.iconselector-icons {
     position: relative;
 
     margin-top: 50px;
-
-    left: 50%;
-    transform: translateX(-50%);
     
     display: grid;
     grid-template-columns: repeat(8, auto);
 }
+
 
 div.iconselector-icons > div.iconselector-face {
     height: 50px;
@@ -122,8 +138,6 @@ div.iconselector-icons > div.iconselector-face {
 div.iconselector-curricon > img.iconselector-face-arrow {
     position: relative;
     width: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     z-index: 2;
 }
 
@@ -146,11 +160,31 @@ div.imagegen > img.imagegen-result {
     width: 70%;
 }
 
+div.imagegen::before {
+    display: block;
+    content: "Generated Image";
+
+    margin-bottom: 10px;
+
+    color: var(--color-second);
+    font-size: 1.1em;
+}
+
 div.imagegen > div.imagegen-options {
     user-select: none;
 
     margin-top: 20px;
     font-size: 1.8em;
+}
+
+div.imagegen > div.imagegen-options::before {
+    display: block;
+    content: "Options";
+
+    margin-bottom: 10px;
+
+    color: var(--color-second);
+    font-size: 0.8em;
 }
 
 div.imagegen-options > span:not(:last-of-type) {
@@ -159,6 +193,10 @@ div.imagegen-options > span:not(:last-of-type) {
 
 div.imagegen-options > div.imagegen-imgoptions {
     margin-bottom: 10px;
+}
+
+div.imagegen-options input:not(:first-of-type) {
+    margin-left: 10px;
 }
 
 /* Music player */

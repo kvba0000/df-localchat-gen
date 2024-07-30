@@ -30,16 +30,16 @@ someoneEl.addEventListener("click", async () => {
     audio.squeak.play()
     await animateAsync(someoneEl, [
         {
-            transform: "translateX(-50%) rotate(0deg)",
-            left: "30%",
+            transform: "translateX(calc(-50% - 100px)) rotate(0deg)",
+            left: "50%",
             bottom: "0px"
         },
         {
             bottom: "30px"
         },
         {
-            transform: "translateX(-50%) rotate(600deg)",
-            left: "calc(0% - 50px)",
+            transform: "translateX(calc(-50% - 100px)) rotate(-600deg)",
+            left: "0%",
             bottom: "-80px"
         }
     ], {

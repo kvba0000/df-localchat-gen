@@ -43,6 +43,33 @@ export default class ImageGenerator {
     dataGifURL = null
     /** @private @type {boolean} */
     isAnimated = false;
+    /** @type {string} */
+    nameColor = "#FFFFFF"
+    /** @type {string} */
+    messageColor = "#FFFFFF"
+
+    resetImage() {
+        this.dataURL = null
+        this.dataGifURL = null
+    }
+
+    /**
+     * Sets name color and resets image cache
+     * @param {string} color 
+     */
+    setNameColor(color) {
+        this.nameColor = color
+        this.resetImage()
+    }
+
+    /**
+     * Sets message color and resets image cache
+     * @param {string} color 
+     */
+    setMessageColor(color) {
+        this.messageColor = color
+        this.resetImage()
+    }
 
     /**
      * 
@@ -73,8 +100,9 @@ export default class ImageGenerator {
         const newEl = options.querySelector("span.imagegen-new")
 
         const imgOptions = options.querySelector("div.imagegen-imgoptions")
-        /** @type {HTMLInputElement} */
         const animatedEl = imgOptions.querySelector("input.imagegen-animated")
+        const nameColorEl = imgOptions.querySelector("input.imagegen-namecolor")
+        const messageColorEl = imgOptions.querySelector("input.imagegen-messagecolor")
 
         newEl.addEventListener("mouseover", () => playAudioNoDelay(BLIP_AUDIO))
 
@@ -98,6 +126,16 @@ export default class ImageGenerator {
         animatedEl.addEventListener("click", () => {
             this.isAnimated = animatedEl.checked
             this.show(null, animatedEl.checked)
+        })
+
+        nameColorEl.addEventListener("change", () => {
+            this.setNameColor(nameColorEl.value)
+            this.show(null, this.isAnimated)
+        })
+
+        messageColorEl.addEventListener("change", () => {
+            this.setMessageColor(messageColorEl.value)
+            this.show(null, this.isAnimated)
         })
     }
 
@@ -160,7 +198,7 @@ export default class ImageGenerator {
         )
 
         // name
-        ctx.fillStyle = "white"
+        ctx.fillStyle = this.nameColor
         ctx.textBaseline = "top"
         let fontSize = 7 * this.imageRatio
         ctx.font = `${fontSize}px "Trouble Benath The Dome"`
@@ -172,6 +210,7 @@ export default class ImageGenerator {
 
         // msg
         fontSize = 60
+        ctx.fillStyle = this.messageColor
         ctx.font = `${fontSize}px "Determination Mono"`
         this.fitMessage(ctx)
         ctx.fillText(
