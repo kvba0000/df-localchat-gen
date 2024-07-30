@@ -20,6 +20,12 @@ for(let [fontFamily, fontSource] of Object.entries(fonts)) new FontFace(fontFami
     })
 
 /**
+ *  Converts canvas to blob asynchronously
+ *  @param {HTMLCanvasElement} canvas
+ */
+const toBlobAsync = (canvas, type, quality) => new Promise(r => canvas.toBlob(r, type, quality))
+
+/**
  * DF Image Generator, please don't use in malicious purposes.
  */
 export default class ImageGenerator {
@@ -219,7 +225,7 @@ export default class ImageGenerator {
             13 * this.imageRatio
         )
 
-        return returnImageData ? ctx.getImageData(0, 0, canvas.width, canvas.height) : canvas.toDataURL("image/png")
+        return returnImageData ? ctx.getImageData(0, 0, canvas.width, canvas.height) : URL.createObjectURL(await toBlobAsync(canvas, "image/png"))
     }
 
     /**
@@ -244,17 +250,16 @@ export default class ImageGenerator {
 
         return new Promise(async r => {
             const gif = new GIF({
-                workerScript: "scripts/gif.js/gif.worker.js"
+                workerScript: "scripts/gif.js/gif.worker.js",
+                workers: 5,
             })
             gif.once("finished", (blob) => {
-                console.log(URL.createObjectURL(blob))
                 r(URL.createObjectURL(blob))
             })
 
             let text = ""
             for(let i = 0; i < this.message.length; i++) {
                 text += this.message[i]
-                console.log(text)
                 gif.addFrame(
                     await this.generate(true, text),
                     {
