@@ -23,9 +23,7 @@ someoneEl.addEventListener("click", async () => {
         squeak: new Audio("audio/snd_squeak.wav"),
         freed: new Audio("audio/snd_freed.wav")
     }
-    await Promise.all(
-        Object.values(audio).map(a => audioWaitToLoad(a))
-    )
+    await audioWaitToLoad(...Object.values(audio))
 
     audio.squeak.play()
     await animateAsync(someoneEl, [
