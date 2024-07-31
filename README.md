@@ -24,7 +24,8 @@ $ git clone https://github.com/kvba0000/df-localchat-gen
 ![Message 3](/assets/msg3.png)
 - Me (kvba) - Creator of the site, code, styles
 - RickyG and His Team - [DONTFORGET](https://gamejolt.com/games/dontforget/150752), Sprites, Music
-- Toby Fox - [UNDERTALE](https://undertale.com/) and [DELTARUNE](https://deltarune.com/)  
+- Toby Fox - [UNDERTALE](https://undertale.com/) and [DELTARUNE](https://deltarune.com/)
+- jnordberg - [gif.js](https://github.com/jnordberg/gif.js) - library for creating GIF imagies directly in browser!  
 
 ...and many more I wasn't able to credit. Credits to original creators of AUs and various games included in DONTFORGET!
 # 
