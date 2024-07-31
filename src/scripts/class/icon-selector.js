@@ -9,6 +9,8 @@ const ICONSELECTOR_TEMPLATE = document.querySelector("div#iconselector-template"
 export default class IconSelector {
     /** @type {{[spriteName: string]: number}} */
     metadata = {}
+    /** @type {{name: string, icons: string[], color: string}[]} */
+    categories = []
     /** @type {[string, number]} */
     currentIcon = ["spr_rp_harlow", 0]
     /** @type {HTMLDivElement} */
@@ -17,6 +19,8 @@ export default class IconSelector {
     exists = false;
     /** @private @type {(this: IconSelector, val: [string, number]) => boolean} */
     onDone = null
+    /** @type {null | {name: string, icons: string[], color: string}} */
+    category = null
 
     /**
      * Returns formatted URL for icon image. DOES NOT VALIDATE DATA
@@ -97,14 +101,17 @@ export default class IconSelector {
      */
     async show(putBefore) {
         this.metadata = await importJSON("sprites/faces/metadata.json")
+        this.categories = await importJSON("sprites/faces/categories.json")
+        
+        this.category = this.categories[0]
 
         const currIcon = this.element.querySelector("div.iconselector-curricon")
-
         const currFaceDiv = currIcon.querySelector("div.iconselector-face")
         const currFace = currFaceDiv.querySelector("img")
-
         const nextFace = currIcon.querySelector("img.iconselector-face-next")
         const prevFace = currIcon.querySelector("img.iconselector-face-prev")
+
+        const categoriesDiv = this.element.querySelector("div.iconselector-categories")
 
         const icons = this.element.querySelector("div.iconselector-icons")
 
@@ -127,26 +134,53 @@ export default class IconSelector {
             this.setDone()
         })
 
-        // Setting icons
-        for(let [id, _] of Object.entries(this.metadata)) {
-            const div = document.createElement("div")
-            div.classList.add("selectable-border", "iconselector-face")
+        const updateIcons = () => {
+            icons.innerHTML = ""
+            for(let [id, _] of Object.entries(this.metadata).filter(([id,_]) => this.category.icons.includes(id))) {
+                const div = document.createElement("div")
+                div.classList.add("selectable-border", "iconselector-face")
 
-            div.addEventListener("click", () => {
-                playAudioNoDelay(SELECT_AUDIO)
-                currIcon.scrollIntoView({behavior: "smooth"})
-                this.setChar(id)
-            })
-            div.addEventListener("mouseover", (ev) => {
-                if (ev.relatedTarget === div) playAudioNoDelay(BLIP_AUDIO)
-            })
+                div.addEventListener("click", () => {
+                    playAudioNoDelay(SELECT_AUDIO)
+                    currIcon.scrollIntoView({behavior: "smooth"})
+                    this.setChar(id)
+                })
+                div.addEventListener("mouseover", (ev) => {
+                    if (ev.relatedTarget === div) playAudioNoDelay(BLIP_AUDIO)
+                })
 
-            const img = document.createElement("img")
-            img.src = this.getIconURL(id, 0)
+                const img = document.createElement("img")
+                img.src = this.getIconURL(id, 0)
 
-            div.appendChild(img)
-            icons.appendChild(div)
+                div.appendChild(img)
+                icons.appendChild(div)
+            }
         }
+
+        // Setting category
+        for (let {name, color} of this.categories) {
+            const span = document.createElement("span")
+
+            span.classList.add("iconselector-category")
+            span.style.setProperty("--category-color", color)
+
+            span.innerHTML = name
+
+            if(name === this.category.name) span.classList.add("selected-category")
+
+            span.addEventListener("click", () => {
+                playAudioNoDelay(SELECT_AUDIO)
+                categoriesDiv.querySelector("span.selected-category").classList.remove("selected-category")
+                span.classList.add("selected-category")
+
+                this.category = this.categories.find(c => c.name === name)
+                updateIcons()
+            })
+
+            categoriesDiv.appendChild(span)
+        }
+
+        updateIcons()
 
         CONTENT_ELEMENT.insertBefore(this.element, putBefore || null)
         this.exists = true;

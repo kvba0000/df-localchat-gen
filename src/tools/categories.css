@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "Determination Mono";
+    src: url("../styles/fonts/DeterminationSansWebRegular.ttf") format("truetype");
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    image-rendering: pixelated;
+}
+
+body {
+    background-color: black;
+    color: white;
+
+    font-family: "Determination Mono", sans-serif;
+}
+
+.border {
+    border: 1px solid white;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+span#notice {
+    color: red;
+}
+
+div#categorypick {
+    width: 300px;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+div#categorypick > div {
+    margin-bottom: 10px;
+}
+
+textarea#categoryoutput {
+    display: block;
+}
+
+div.categorydatagen::after {
+    content: "[Use this when creating categories to tool]";
+
+    color: gray;
+    font-size: 0.8em;
+}
+
+div#icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+img#iconpreview {
+    border: 3px solid white;
+
+    width: 100px;
+    height: 100px;
+
+    object-fit: contain;
+    object-position: bottom;
+
+    background-image: url("../sprites/spr_rp_localmsg_icon_0.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+div#icons::before {
+    content: "[Hover over an icon to preview]";
+
+    color: gray;
+    font-size: 0.9em;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Category Generator</title>
+        <link rel="stylesheet" href="categories.css" />
+    </head>
+    <body>
+        <div id="categorypick" class="border">
+            <span id="notice">Please keep in mind that this is dev tool. It's not meant to be used in production nor look good.</span>
+            <br>
+            Select Category: <select id="categories"></select>
+            <div>
+                <input id="categoryname" type="text" placeholder="Name" />
+                <input id="categorycolor" type="color" />
+                <button id="addcategory">Add</button>
+                <button id="removecategory">Remove</button>
+            </div>
+            <div class="categorydatagen">
+                <button id="generatecategory">Generate</button>
+                <textarea id="categoryoutput" placeholder="...output" readonly></textarea>
+            </div>
+        </div>
+        <img id="iconpreview" style="visibility: hidden;" />
+        <div id="icons"></div>
+        <script type="module" src="categories.js"></script>
+    </body>
+</html>

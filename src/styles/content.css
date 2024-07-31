@@ -85,6 +85,28 @@ div.iconselector::before {
     font-size: 1.8em;
 }
 
+div.iconselector > div.iconselector-categories {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+div.iconselector-categories > span.iconselector-category {
+    width: 100%;
+
+    background-color: var(--category-color, #000000);
+    color: #000000;
+    border-radius: 1px;
+    border: 2px solid #000000;
+}
+
+span.iconselector-category.selected-category {
+    outline: 3px solid #ffffff;
+}
+
 div.iconselector-face {
     position: relative;
     left: 50%;

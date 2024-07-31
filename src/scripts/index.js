@@ -134,7 +134,8 @@ const start = (restart = false) => {
 /** Use this only for debugging image generator... */
 const debugStart = () => {
     answers = ["THEONE12", "lorem ipsum sit hamet lorem ipsum sit hamet lorem ipsum sit hamet", "/sprites/faces/spr_rp_omori/spr_rp_omori_0.png"]
-    startGenerator()
+    // startGenerator()
+    showIconSelector()
 }
 
 document.addEventListener("notice-gone", () => start(true), { once: true })
